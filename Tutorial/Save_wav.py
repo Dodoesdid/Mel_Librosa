@@ -6,10 +6,10 @@ import soundfile as sf
 y_scale , sr_scale = librosa.load('audio/scale.wav')
 
 # STFT
-out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='false', spectro='flase')
+out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='true', spectro='flase')
 
 # Inv STFT
-out_6 = m.inv_STFT(out_1, frame_size=2048, hop_size=256)
+out_6 = m.inv_STFT(out_1, frame_size=2048, hop_size=256, dB='true')
 
 '''
 Saving time domain signal to .wav

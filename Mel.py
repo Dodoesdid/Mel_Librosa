@@ -116,7 +116,7 @@ def Mel(signal, sample_rate, frame_size, hop_size, n_mels, dB='false', spectro='
 
     return spectrogram
 
-def inv_STFT(data, frame_size, hop_size):
+def inv_STFT(data, frame_size, hop_size, dB='false'):
     '''
     *** Inverse STFT using Griffin Lim Algorithm ***
     Args: 
@@ -126,6 +126,9 @@ def inv_STFT(data, frame_size, hop_size):
     Return:
         1D array of time domain signal
     '''
+
+    if(dB == 'true'):
+        data = librosa.db_to_amplitude(data)
 
     inv_data = librosa.griffinlim(data, win_length=frame_size, hop_length=hop_size)
 
