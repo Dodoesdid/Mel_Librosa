@@ -88,7 +88,7 @@ def Mel(signal, sample_rate, frame_size, hop_size, n_mels, dB='false', spectro='
         signal: time domain 1D array
         sample_rate: sampling rate of current signal
         frame_size: number of points per FT (if bigger -> f_resolution higher, t_resolution lower)
-        hop_size: suggested 0.5 ~ 0.25
+        hop_size: suggested 0.5 or 0.25 times of frame size
         n_mels: number of Mel filter banks, max size dependent on frame_size typical: 128
         dB: if dB='true' output will be in scale of dB rather than linear
         spectro: If spectro='true', view spectrogram of data 
