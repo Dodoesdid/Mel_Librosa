@@ -3,7 +3,7 @@ import librosa
 import soundfile as sf
 
 # Load Data
-y_scale , sr_scale = librosa.load('audio/scale.wav')
+y_scale , sr_scale = librosa.load('audio/five_seconds.wav')
 
 # STFT
 out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='true', spectro='flase')

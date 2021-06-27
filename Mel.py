@@ -147,3 +147,42 @@ def spectrogram(data, y_axis):
     plt.colorbar(format="%+2.f")
     plt.show()
     
+def square(signal, frame_size, hop_size, value=-60.):
+    '''
+    Creates a square array
+    Args:
+        signal: 5 second duration
+        sample_rate: 16000 only
+        value: padded value, suggested at -60 dB, can be modified
+    Return:
+        531*531 np array
+    '''
+
+    # STFT
+    out = librosa.stft(signal, n_fft=frame_size, hop_length=hop_size)
+
+    # Remove Complex Number
+    out = np.abs(out)
+
+    # Power to dB 
+    out = librosa.amplitude_to_db(out)
+
+    # Append zeros
+    padding = np.zeros((18, 531), dtype='float64')
+    padding.fill(value)
+    out = np.append(out, padding, 0)
+
+    return out
+
+def inv_square(data, frame_size, hop_size):
+    '''
+    Inverse of square function
+    '''
+
+    data = data[0:513, 0:531]
+
+    data = librosa.db_to_amplitude(data)
+
+    inv_data = librosa.griffinlim(data, win_length=frame_size, hop_length=hop_size)
+
+    return inv_data
