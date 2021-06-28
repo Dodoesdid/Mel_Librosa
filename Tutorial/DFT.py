@@ -15,7 +15,7 @@ Discrerte Fourier transform - (1)
       Ex. 5 + 3i & 5 - 3i (absolute) -> 16 & 34 
    6. This results in the plot below if we set the f_ratio to 1, viewing the full plot
 '''
-out = m.DFT(y_sin_1k, sr_sin_1k, f_ratio=1, plot='true')
+out = m.DFT(y_sin_1k, sr_sin_1k, f_ratio=1, plot=True)
 
 '''
 Discrerte Fourier transform - (2)
@@ -23,4 +23,4 @@ Discrerte Fourier transform - (2)
    2. Thankfullly, we have our Sampling Frequency at twice the Data Frequency
    3. All we have to do is throw away the part we dont need (0.5 ~ 1) and keep the part we need (0 ~ 0.5)
 '''
-out = m.DFT(y_sin_1k, sr_sin_1k, f_ratio=0.5, plot='true')
+out = m.DFT(y_sin_1k, sr_sin_1k, f_ratio=0.5, plot=True)

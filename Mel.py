@@ -3,7 +3,7 @@ import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 
-def DFT(signal, sr, f_ratio=0.5, plot='false'):
+def DFT(signal, sr, f_ratio=0.5, plot=False):
     '''
     *** Discrete Fourier Transform ***
     Args:
@@ -21,7 +21,7 @@ def DFT(signal, sr, f_ratio=0.5, plot='false'):
     magnitude_spectrum = np.abs(ft) ** 2
 
     # Plot
-    if(plot == 'true'):
+    if(plot == True):
         plt.figure(figsize=(12, 5))
         frequency = np.linspace(0, sr, len(magnitude_spectrum))
         num_frequency_bins = int(len(frequency) * f_ratio)
@@ -32,7 +32,7 @@ def DFT(signal, sr, f_ratio=0.5, plot='false'):
 
     return magnitude_spectrum
 
-def STFT(signal, sample_rate, frame_size, hop_size, dB='false', spectro='false'):
+def STFT(signal, sample_rate, frame_size, hop_size, dB=False, spectro=False):
     '''
     *** Stort Time Fourier Transform ***
     Args: 
@@ -54,13 +54,13 @@ def STFT(signal, sample_rate, frame_size, hop_size, dB='false', spectro='false')
     # Power to dB (amplitude to db ???)
     Y_dB = librosa.amplitude_to_db(Y)
 
-    if(dB == 'true'):
+    if(dB == True):
         Y_out = Y_dB
     else:
         Y_out = Y
 
     # Visualize Spectrogram
-    if (spectro == 'true'):
+    if (spectro == True):
         plt.figure(figsize=(12, 5))
         librosa.display.specshow(Y_out, sr=sample_rate, x_axis='time', y_axis='linear')
         plt.title('Stort Time Fourier Transform')
@@ -81,7 +81,7 @@ def STFT(signal, sample_rate, frame_size, hop_size, dB='false', spectro='false')
     # Return
     return Y_out
 
-def Mel(signal, sample_rate, frame_size, hop_size, n_mels, dB='false', spectro='false'):
+def Mel(signal, sample_rate, frame_size, hop_size, n_mels, dB=False, spectro=False):
     '''
     *** Mel Spectrogram ***
     Args:
@@ -102,12 +102,12 @@ def Mel(signal, sample_rate, frame_size, hop_size, n_mels, dB='false', spectro='
     # Power to dB
     db_mel_spectrogram = librosa.power_to_db(mel_spectrogram)
 
-    if(dB == 'true'):
+    if(dB == True):
         spectrogram =  db_mel_spectrogram
     else:
         spectrogram = mel_spectrogram
 
-    if(spectro == 'true'):
+    if(spectro == True):
         plt.figure(figsize=(12, 5))
         librosa.display.specshow(spectrogram, sr=sample_rate, x_axis='time', y_axis='mel')
         plt.title('Mel Spectrogram')
@@ -116,7 +116,7 @@ def Mel(signal, sample_rate, frame_size, hop_size, n_mels, dB='false', spectro='
 
     return spectrogram
 
-def inv_STFT(data, frame_size, hop_size, dB='false'):
+def inv_STFT(data, frame_size, hop_size, dB=False):
     '''
     *** Inverse STFT using Griffin Lim Algorithm ***
     Args: 
@@ -127,7 +127,7 @@ def inv_STFT(data, frame_size, hop_size, dB='false'):
         1D array of time domain signal
     '''
 
-    if(dB == 'true'):
+    if(dB == True):
         data = librosa.db_to_amplitude(data)
 
     inv_data = librosa.griffinlim(data, win_length=frame_size, hop_length=hop_size)

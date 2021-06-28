@@ -5,7 +5,7 @@ import librosa
 y_scale , sr_scale = librosa.load('audio/scale.wav')
 
 # STFT
-out_2 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='true', spectro='true')
+out_2 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB=True, spectro=True)
 
 '''
 Plotting Spectrograms

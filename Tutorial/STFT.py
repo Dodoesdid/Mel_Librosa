@@ -19,7 +19,7 @@ Stort Time Fourier Transform - (1)
       frame count: (samples - frames size) / hop size + 1 dependent on both frame & hop size
 '''
 
-out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='false', spectro='true')
+out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB=False, spectro=True)
 
 '''
 dB Representation
@@ -28,7 +28,7 @@ dB Representation
    3. In Audio Processing we usually use dB to represent values, 
       so we need to turn almplitude to power, than convert it into dB
 '''
-out_2 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='true', spectro='true')
+out_2 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB=True, spectro=True)
 
 '''
 Tunning Output Size
@@ -36,13 +36,13 @@ Tunning Output Size
    2. Increasing hop size decreases time resolution, vise versa 
 '''
 # Decrease frame size
-out_3 = m.STFT(y_scale, sr_scale, frame_size=1024, hop_size=256, dB='true', spectro='false')
+out_3 = m.STFT(y_scale, sr_scale, frame_size=1024, hop_size=256, dB=True, spectro=False)
 print('frame=2048 hop=256')
 print(out_1.shape)
 print('frame=1024 hop=256')
 print(out_3.shape)
 
 # Increase hop size
-out_4 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=512, dB='true', spectro='false')
+out_4 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=512, dB=True, spectro=False)
 print('frame=2048 hop=512')
 print(out_4.shape)

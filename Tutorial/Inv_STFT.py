@@ -9,10 +9,10 @@ y_scale , sr_scale = librosa.load('audio/scale.wav')
 Output in Linear
 '''
 # STFT
-out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='false', spectro='true')
+out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB=False, spectro=True)
 
 # Inverse STFT
-out_6 = m.inv_STFT(out_1, frame_size=2048, hop_size=256, dB='false')
+out_6 = m.inv_STFT(out_1, frame_size=2048, hop_size=256, dB=False)
 
 # Compare
 fig, ax = plt.subplots(nrows=2, sharex=True, sharey=True)
@@ -32,10 +32,10 @@ plt.show()
 Output in dB
 '''
 # STFT
-out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB='true', spectro='true')
+out_1 = m.STFT(y_scale, sr_scale, frame_size=2048, hop_size=256, dB=True, spectro=True)
 
 # Inverse STFT
-out_6 = m.inv_STFT(out_1, frame_size=2048, hop_size=256, dB='true')
+out_6 = m.inv_STFT(out_1, frame_size=2048, hop_size=256, dB=True)
 
 # Compare
 fig, ax = plt.subplots(nrows=2, sharex=True, sharey=True)

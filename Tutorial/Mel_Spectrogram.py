@@ -18,4 +18,4 @@ Mel Spectrograms
    9. This is also the problem of Mel filter banks as frequency bins usually have a bigger value than band count
       doing the Mel transformation will loose out frequency resolution resulting in data loss when inverted (my thoughts)
 '''
-out_5 = m.Mel(y_scale, sr_scale, frame_size=2048, hop_size=512, n_mels=128, dB='true', spectro='true')
+out_5 = m.Mel(y_scale, sr_scale, frame_size=2048, hop_size=512, n_mels=128, dB=True, spectro=True)
