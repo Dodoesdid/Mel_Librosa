@@ -168,9 +168,13 @@ def square(signal, frame_size, hop_size, value=-60.):
     out = librosa.amplitude_to_db(out)
 
     # Append zeros
-    padding = np.zeros((18, 531), dtype='float64')
-    padding.fill(value)
-    out = np.append(out, padding, 0)
+    shape = out.shape
+    frequency_bins = shape[0]
+    time_bins = shape[1]
+
+    padding = np.zeros((frequency_bins, frequency_bins - time_bins), dtype='float64')
+    padding.fill(-60.)
+    out = np.append(out, padding, 1)
 
     return out
 
@@ -179,7 +183,7 @@ def inv_square(data, frame_size, hop_size):
     Inverse of square function
     '''
 
-    data = data[0:513, 0:531]
+    data = data[0:513, 0:431]
 
     data = librosa.db_to_amplitude(data)
 
