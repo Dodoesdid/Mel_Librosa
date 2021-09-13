@@ -1,7 +1,3 @@
-from re import T
-
-from numpy.fft import irfft
-import Mel as m
 import numpy as np
 import scipy.signal
 import soundfile as sf
@@ -48,7 +44,7 @@ sine_a = sine * sine_window
 sine_a = np.fft.irfft(np.fft.rfft(sine_a))
 
 # Remove window
-sine_a = sine_a / sine_window
+sine_a = sine_a * sine_window
 
 plt.plot(sine_a)
 plt.title("After Procedure")
