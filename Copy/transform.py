@@ -96,12 +96,12 @@ win_length = n_fft
 hop_length = HOP_SIZE
 
 # Prepare Window
-ifft_window = get_window("hann", win_length, fftbins=True)
-ifft_window = util.pad_center(ifft_window, n_fft)[:, np.newaxis]
+ifft_window = scipy.signal.get_window("hann", win_length)
+ifft_window = util.pad_center(ifft_window, n_fft)[:, np.newaxis] #@check
 
-# Prepare output matrix
+# Prepare output matrix @done
 n_frames = l_out.shape[1]
-expected_signal_len = n_fft + hop_length * (n_frames - 1) # 80896
+expected_signal_len = n_fft + hop_length * (n_frames - 1) 
 
 dtype = util.dtype_c2r(l_out.dtype)
 
