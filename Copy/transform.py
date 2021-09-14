@@ -126,6 +126,7 @@ for bl_s in range(0, n_frames, n_columns):
 # Can hear voice with noise already now
 
 # Normalize by sum of squared window SIGNIFICANTLY reduces the noise OH My !!!
+'''
 ifft_window_sum = window_sumsquare(
     "hann",
     n_frames,
@@ -134,6 +135,19 @@ ifft_window_sum = window_sumsquare(
     hop_length=hop_length,
     dtype=dtype,
 )
+'''
+
+''' My window sumsquare '''
+n = n_fft + hop_length * (n_frames - 1)
+ifft_window_sum = np.zeros(n, dtype=dtype)
+
+# Compute the squared window at the desired length
+win_sq = scipy.signal.get_window("hann", win_length)
+win_sq = util.normalize(win_sq, norm=None) ** 2
+#win_sq = util.pad_center(win_sq, n_fft)
+
+# Overlap window sumsquare
+__window_ss_fill(ifft_window_sum, win_sq, n_frames, hop_length)
 
 approx_nonzero_indices = ifft_window_sum > util.tiny(ifft_window_sum)
 y[approx_nonzero_indices] /= ifft_window_sum[approx_nonzero_indices]

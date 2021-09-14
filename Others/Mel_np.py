@@ -1,4 +1,3 @@
-from Reference.mel_featues import frame
 import vggish_mel_features as m
 import numpy as np
 import scipy.signal
@@ -50,7 +49,7 @@ for i in range(FRAMES):
     ifft = ifft + WINDOW_OFFSET
 
     # remove window
-    ifft = ifft / hann
+    ifft = ifft * hann
     
     # Load into output
     start = i * HOP_SIZE + QUARTER_FRAME
@@ -67,7 +66,8 @@ for i in range(FRAMES):
     y_out[start : (start + HOP_SIZE)] = ifft[QUARTER_FRAME : QUARTER_FRAME * 3]
 
 plt.plot(y_out)
+plt.title("Converted")
 plt.show()
 
 sf.write("audio_generated/mixed_istft.wav", y_out, sr)
-sf.write("audio_generate/fart.wav", y_out - y, sr)
+#sf.write("audio_generate/fart.wav", y_out - y, sr)
