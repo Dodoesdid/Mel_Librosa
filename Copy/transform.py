@@ -62,6 +62,7 @@ def __window_ss_fill(x, win_sq, n_frames, hop_length):  # pragma: no cover
         sample = i * hop_length
         x[sample : min(n, sample + n_fft)] += win_sq[: max(0, min(n_fft, n - sample))]
 
+'''
 def window_sumsquare(
     window,
     n_frames,
@@ -87,6 +88,7 @@ def window_sumsquare(
     __window_ss_fill(x, win_sq, n_frames, hop_length)
 
     return x
+'''
 
 # Get window length = FRAME_SIZE
 n_fft = 2 * (l_out.shape[0] - 1)
@@ -147,7 +149,12 @@ win_sq = util.normalize(win_sq, norm=None) ** 2
 #win_sq = util.pad_center(win_sq, n_fft)
 
 # Overlap window sumsquare
-__window_ss_fill(ifft_window_sum, win_sq, n_frames, hop_length)
+n = len(ifft_window_sum)
+n_fft = len(win_sq)
+for i in range(n_frames):
+    sample = i * hop_length
+    ifft_window_sum[sample : min(n, sample + n_fft)] += win_sq[: max(0, min(n_fft, n - sample))]
+
 
 approx_nonzero_indices = ifft_window_sum > util.tiny(ifft_window_sum)
 y[approx_nonzero_indices] /= ifft_window_sum[approx_nonzero_indices]

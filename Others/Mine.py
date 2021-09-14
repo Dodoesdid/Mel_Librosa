@@ -1,4 +1,4 @@
-import vggish_mel_features as m
+import librosa as l
 import numpy as np
 import scipy.signal
 import soundfile as sf
@@ -24,17 +24,14 @@ sf.write("audio_generated/mixed_fft.wav", y_fft, sr)
 
 ''' My ISTFT '''
 
-# frame test
-frames = m.frame(y, FRAME_SIZE, HOP_SIZE)
-
 # foward STFT
-stft = m.stft_magnitude(y, FRAME_SIZE, HOP_SIZE, FRAME_SIZE)
+stft = l_out = l.stft(y, n_fft=FRAME_SIZE, hop_length=HOP_SIZE)
 
-FRAMES = stft.shape[0]
+FRAMES = stft.shape[1]
 
 # Generate Window
-hann = m.periodic_hann(FRAME_SIZE)
-hann = hann + WINDOW_OFFSET
+hann = scipy.signal.get_window("hann", FRAME_SIZE)
+#hann = hann + WINDOW_OFFSET
 
 # Preallocate output
 expected_signal_length = FRAME_SIZE + HOP_SIZE * (FRAMES - 1)
@@ -43,10 +40,10 @@ y_out = np.zeros(expected_signal_length)
 for i in range(FRAMES):
 
     # Inverse FFT (After checking produces negative value)
-    ifft = np.fft.irfft(stft[i, :]) 
+    ifft = np.fft.irfft(stft[:, i]) 
 
     # Add offset for dividing
-    ifft = ifft + WINDOW_OFFSET
+    #ifft = ifft + WINDOW_OFFSET
 
     # remove window
     ifft = ifft * hann
