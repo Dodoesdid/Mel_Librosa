@@ -62,6 +62,35 @@ for i in range(FRAMES):
 
     y_out[start : (start + HOP_SIZE)] = ifft[QUARTER_FRAME : QUARTER_FRAME * 3]
 
+''' Window sum square'''
+ifft_window_sum = np.zeros(expected_signal_length, dtype=y_out.dtype)
+
+# Compute the squared window at the desired length
+win_sq = scipy.signal.get_window("hann", FRAME_SIZE)
+
+fig, axs = plt.subplots(2)
+fig.suptitle('Compare')
+axs[0].plot(win_sq)
+axs[1].plot(win_sq ** 2)
+plt.show()
+
+win_sq = win_sq ** 2
+#win_sq = util.pad_center(win_sq, n_fft)
+
+# Overlap window sumsquare
+n = len(ifft_window_sum)
+n_fft = len(win_sq)
+for i in range(FRAMES):
+    sample = i * HOP_SIZE
+    ifft_window_sum[sample : min(n, sample + n_fft)] += win_sq[: max(0, min(n_fft, n - sample))]
+
+# Only divide non zero elements, or ?  (np.finfo(y_out.dtype).tiny = 2.2250738585072014e-308)
+approx_nonzero_indices = ifft_window_sum > np.finfo(y_out.dtype).tiny
+y_out[approx_nonzero_indices] /= ifft_window_sum[approx_nonzero_indices]
+
+# Trim data
+y_out = y_out[int(n_fft // 2) : -int(n_fft // 2)]
+
 plt.plot(y_out)
 plt.title("Converted")
 plt.show()
