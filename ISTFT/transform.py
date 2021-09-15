@@ -162,4 +162,4 @@ y[approx_nonzero_indices] /= ifft_window_sum[approx_nonzero_indices]
 # Trim data
 y = y[int(n_fft // 2) : -int(n_fft // 2)]
 
-sf.write("should.wav", y, sr)
+sf.write("audio_generated/should.wav", y, sr)
